@@ -41,10 +41,10 @@ namespace ProductsApp.Tests
         {
             //Arrange
             Products sut = new Products();
-            Product apple = new Product() { Name = null, IsSold = false };
+            Product productNullName = new Product() { Name = null, IsSold = false };
 
             //Act
-            Action act = () => sut.AddNew(apple);
+            Action act = () => sut.AddNew(productNullName);
 
             //Assert
             var exception = Assert.Throws<NameRequiredException>(act);
