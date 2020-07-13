@@ -49,6 +49,22 @@ namespace ProductsApp.Tests
             //Assert
             var exception = Assert.Throws<NameRequiredException>(act);
         }
+
+        [Fact]
+        public void NotReturnSoldProducts()
+        {
+            //Arrange
+            Products sut = new Products();
+            Product apple = new Product() { Name = "Apple", IsSold = false };
+
+            //Act
+            sut.AddNew(apple);
+            sut.Sold(apple);
+
+            //Assert
+            Assert.DoesNotContain("Apple", sut.Items.Select(f => f.Name));
+        }
+
     }
 
     internal class Products
@@ -57,7 +73,7 @@ namespace ProductsApp.Tests
 
         public IEnumerable<Product> Items => _products.Where(t => !t.IsSold);
 
-        public void AddNew(Product product)
+        public void AddNew(Product product) 
         {
             product = product ??
                 throw new ArgumentNullException();
